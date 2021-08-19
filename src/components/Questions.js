@@ -108,7 +108,7 @@ function Questions(props) {
                                 </Box>
                                 <Box display="flex" >
                                     <Typography variant="body2" color="textSecondary" >
-                                        votes :
+                                        votes ({question.optionOne.votes.length}):
                                     </Typography>
                                     <AvatarGroup max={4}>
                                         {
@@ -137,7 +137,7 @@ function Questions(props) {
                                 </Box>
                                 <Box display="flex" >
                                     <Typography variant="body2" color="textSecondary" >
-                                        votes :
+                                        votes ({question.optionTwo.votes.length}):
                                     </Typography>
                                     <AvatarGroup max={4}>
                                         {

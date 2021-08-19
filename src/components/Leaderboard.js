@@ -1,22 +1,18 @@
 import React from 'react'
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Collapse from '@material-ui/core/Collapse';
+
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import { Box, Container, Grid } from '@material-ui/core';
+import { Container, Grid } from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
     root: {
         justifyContent: 'center',
@@ -68,9 +64,8 @@ function Leaderboard(props) {
         <Container>
             <Grid container className={classes.root} spacing={2}>
                 {userRank.map((user, idx) => (
-                    <Grid item>
-                        {console.log(user)}
-                        <Card key={user.id} className={classes.card}>
+                    <Grid key={user.id} item>
+                        <Card className={classes.card}>
                             <CardHeader
                                 avatar={<Avatar alt={user.name} src={`/static/images/military-rank${idx + 1}.png`} />}
                                 action={

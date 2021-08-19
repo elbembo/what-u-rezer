@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import clsx from 'clsx';
 import { connect } from 'react-redux';
+import { Redirect} from 'react-router-dom';
 import { green } from '@material-ui/core/colors';
 import { handleSaveQuestion } from '../actions/questions';
 import { CircularProgress, Snackbar, Button, CssBaseline, TextField, Typography, Container } from '@material-ui/core';
@@ -52,6 +53,7 @@ function NewPoll(props) {
     const { authedUser, handleSaveQuestion } = props;
     const [option, setOption] = useState({ option1: '', option2: '' });
     const [open, setOpen] = useState(false);
+    const [redirect, setRedirect] = useState(false);
 
     const buttonClassname = clsx({
         [classes.buttonSuccess]: success,
@@ -75,12 +77,18 @@ function NewPoll(props) {
                 setSuccess(true);
                 setLoading(false);
                 setOpen(true);
-                setTimeout(() =>setOpen(false), 3000);
+                setTimeout(() =>{
+                    setOpen(false)
+                    setRedirect(true)
+                }, 1500);
             });
         } else {
             alert('Please fill all empty filds')
         }
     };
+    if (redirect === true) {
+        return <Redirect to="/" />;
+      }
     return (
         <Container component="main" maxWidth="xs">
             <CssBaseline />
