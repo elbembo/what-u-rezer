@@ -6,7 +6,6 @@ import { Card, CardContent,CardHeader , CardMedia, Grid, Paper,Radio, RadioGroup
 
 import { handleSaveQuestionAnswer } from '../actions/users';
 import Button from '@material-ui/core/Button';
-import { Render } from 'react-dom';
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',

@@ -36,16 +36,14 @@ function App(props) {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <CssBaseline />{(authedUser === null) ? (
-
+        <CssBaseline />
+        {(authedUser === null) ? (
           <Login />
-
         ) : (
           <Router>
             <NavBar />
-
             <Route exact path="/" component={Homepage} />
-            <Route path="/newPoll" component={NewPoll} />
+            <Route path="/add" component={NewPoll} />
             <Route path="/leaderboard" component={Leaderboard} />
             <Route path="/questions/:id" component={Questions} />
           </Router>

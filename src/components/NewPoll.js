@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
 import clsx from 'clsx';
 import { connect } from 'react-redux';
-
-import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { green } from '@material-ui/core/colors';
 import { handleSaveQuestion } from '../actions/questions';
 import { CircularProgress, Snackbar, Button, CssBaseline, TextField, Typography, Container } from '@material-ui/core';

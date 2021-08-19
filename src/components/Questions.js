@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { makeStyles,withStyles } from '@material-ui/core/styles';
 import { AvatarGroup } from '@material-ui/lab';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import {Icon, Tooltip, Avatar, Card, CardHeader, CardContent, CardMedia, Grid, Typography, LinearProgress, Box, Button, Paper } from '@material-ui/core';
+import {Tooltip, Avatar, Card, CardHeader, CardContent, CardMedia, Grid, Typography, LinearProgress, Box, Button, Paper } from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',

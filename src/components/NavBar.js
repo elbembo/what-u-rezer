@@ -29,6 +29,10 @@ const useStyles = makeStyles((theme) => ({
 function NavBar(props) {
     const classes = useStyles();
     const { authedUser, users } = props;
+    const logout = e => {
+        props.setAuthedUser(null);
+      };
+    
     return (
         <AppBar position="static">
             <Toolbar>
@@ -36,7 +40,7 @@ function NavBar(props) {
                     <NavLink exact to="/" className={classes.a}>
                         Home
                     </NavLink>
-                    <NavLink exact to="/newPoll" className={classes.a}>
+                    <NavLink exact to="/add" className={classes.a}>
                         Create a Poll
                     </NavLink>
 
@@ -49,7 +53,7 @@ function NavBar(props) {
                 <Tooltip title={users[authedUser].name} aria-label={users[authedUser].id}>
                     <Avatar alt="Cindy Baker" src={users[authedUser].avatarURL} />
                 </Tooltip>
-                <Button color="inherit">Logout </Button>
+                <Button color="inherit" onClick={logout}>Logout </Button>
             </Toolbar>
         </AppBar>
     )

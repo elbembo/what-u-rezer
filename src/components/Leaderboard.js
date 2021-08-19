@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
@@ -15,62 +16,103 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import { Box, Container, Grid } from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
     root: {
-      maxWidth: 345,
+        justifyContent: 'center',
+        flexGrow: 1,
+    },
+    card: {
+        maxWidth: 345,
     },
     media: {
-      height: 0,
-      paddingTop: '56.25%', // 16:9
+        height: 0,
+        paddingTop: '56.25%', // 16:9
     },
     expand: {
-      transform: 'rotate(0deg)',
-      marginLeft: 'auto',
-      transition: theme.transitions.create('transform', {
-        duration: theme.transitions.duration.shortest,
-      }),
+        transform: 'rotate(0deg)',
+        marginLeft: 'auto',
+        transition: theme.transitions.create('transform', {
+            duration: theme.transitions.duration.shortest,
+        }),
     },
     expandOpen: {
-      transform: 'rotate(180deg)',
+        transform: 'rotate(180deg)',
     },
     avatar: {
-      backgroundColor: red[500],
+        backgroundColor: red[500],
     },
-  }));
-function Leaderboard() {
+    span: {
+        paddingRight: '10px',
+        color: "#ff9800"
+    }
+}));
+function rankWithLetter(rank) {
+    let num ='';
+    switch(rank) {
+        case 0:
+          num = '1st place'
+          break;
+        case 1:
+            num = '2nd place'
+          break;
+        default:
+            num = '3rd place'
+      }
+      return num
+}
+function Leaderboard(props) {
+    const { userRank } = props;
     const classes = useStyles();
+    return (
+        <Container>
+            <Grid container className={classes.root} spacing={2}>
+                {userRank.map((user, idx) => (
+                    <Grid item>
+                        {console.log(user)}
+                        <Card key={user.id} className={classes.card}>
+                            <CardHeader
+                                avatar={<Avatar alt={user.name} src={`/static/images/military-rank${idx + 1}.png`} />}
+                                action={
+                                    <IconButton aria-label="settings">
+                                        <MoreVertIcon />
+                                    </IconButton>
+                                }
+                                title={user.name}
+                                subheader={rankWithLetter(idx)}
+                            />
+                            <CardMedia
+                                className={classes.media}
+                                image={user.avatarURL}
+                                title="Paella dish"
+                            />
+                            <CardContent>
 
+                                <Typography variant="body2" color="textSecondary" component="p">
+                                    <Typography variant="h5" color="textSecondary" component="span" className={classes.span}>
+                                        {idx + 1}
+                                    </Typography>
+                                    {`Here is come ${user.name} in the ${rankWithLetter(idx)} with ${user.answerCount} answers, ${user.questionCount} questions and ${user.total} point as a total .`}
+                                </Typography>
+                            </CardContent>
+                        </Card>
+                    </Grid>))
+                }
+            </Grid>
+        </Container>
 
-
-
-  return (
-    <Card className={classes.root}>
-      <CardHeader
-        avatar={<Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-
-        }
-        action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
-        }
-        title="Shrimp and Chorizo Paella"
-        subheader="September 14, 2016"
-      />
-      <CardMedia
-        className={classes.media}
-        image="/static/images/cards/paella.jpg"
-        title="Paella dish"
-      />
-      <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
-          This impressive paella is a perfect party dish and a fun meal to cook together with your
-          guests. Add 1 cup of frozen peas along with the mussels, if you like.
-        </Typography>
-      </CardContent>
-
-    </Card>
-  );
+    );
 }
 
-export default Leaderboard
+function mapStateToProps({ users }) {
+    const userRank = Object.values(users).map(user => ({
+        id: user.id,
+        name: user.name,
+        avatarURL: user.avatarURL,
+        answerCount: Object.values(user.answers).length,
+        questionCount: user.questions.length,
+        total: Object.values(user.answers).length + user.questions.length
+    })).sort((a, b) => a.total - b.total).reverse().slice(0, 3);
+    return { userRank };
+}
+export default connect(mapStateToProps)(Leaderboard);
